@@ -11,9 +11,10 @@ namespace Task1
             GeneralInfo.name = name;
             GeneralInfo.BirthDate = birthdate;
             GeneralInfo.nationalId = nationalId;
-      
+          
 
         }
+
 
         protected Person(Info generalInfo)
         {

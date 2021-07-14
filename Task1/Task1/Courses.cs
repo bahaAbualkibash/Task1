@@ -12,10 +12,18 @@ namespace Task1
         private Teacher courseTeacher;
         private int courseId { get; set; }
 
-        public Courses(Teacher courseTeacher,int courseId)
+        public Courses(Teacher courseTeacher, int courseId)
         {
             this.courseId = courseId;
             this.courseTeacher = courseTeacher;
+            if (courseTeacher != null)
+            {
+                _courses.Add(this);
+
+            }
+
+
+
         }
 
 
@@ -26,9 +34,9 @@ namespace Task1
         public void AddStudents(Student student,int courseId)
         {
             if (student == null) return;
-            if (student.account.Balance > coursePrice)
+            if (student.getAccount().Balance > coursePrice)
             {
-                student.account.Pay(coursePrice,courseTeacher.account);
+                student.getAccount().Pay(coursePrice,courseTeacher.getAccount());
                 var course =FindIfCourseExist(_courses,courseId);
                 if (course == null)
                 {
@@ -57,7 +65,7 @@ namespace Task1
 
             return null;
         }
-        private Courses FindIfCourseExist( int courseId)
+        public Courses FindIfCourseExist( int courseId)
         {
            var course =  FindIfCourseExist(_courses, courseId);
            if (course != null)
@@ -84,6 +92,12 @@ namespace Task1
         {
             return courseTeacher;
         }
+
+        public List<Person> GetPersons()
+        {
+            return _persons;
+        }
+
 
     }
 }

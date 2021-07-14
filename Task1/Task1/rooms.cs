@@ -23,7 +23,7 @@ namespace Task1
 
         }
 
-        public Rooms()
+        private Rooms()
         {
             roomsManager = new Teacher("Hamza", new DateTime(1990, 1, 1), 21379723);
             roomsAccount = new CurrentAccount(roomsManager);
@@ -44,9 +44,9 @@ namespace Task1
         {
             if (_availableRooms.Count == 0) return;
 
-            if (course.GeTeacher().account.Balance > roomPrice)
+            if (course.GeTeacher().getAccount().Balance > roomPrice)
             {
-                course.GeTeacher().account.Pay(roomPrice, roomsAccount);
+                course.GeTeacher().getAccount().Pay(roomPrice, roomsAccount);
                 _availableRooms.Last().course = course.getCourse(courseId);
 
 

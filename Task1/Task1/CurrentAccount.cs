@@ -15,6 +15,7 @@ namespace Task1
             Balance = 0;
             VisaCard = generateVisa();
             Interest = 0.25;
+            
         }
         private string generateVisa()
         {
