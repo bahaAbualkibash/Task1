@@ -22,12 +22,18 @@ namespace Task1
 
         public void ApplyToEnrollInCourse(int courseId)
         {
-            var course = new Courses(null,courseId);
-            course.AddStudents(this,courseId);
+            var course = new Courses(null, courseId);
 
+            var targeredCourse = course.FindIfCourseExist(courseId);
+
+            course.SetTeacher(targeredCourse.GeTeacher()) ;
+            if (!course.FindIfStudentAlreadyExists(this,courseId))
+            {
+                course.AddStudents(this, courseId);
+            }
         }
 
-
+        
 
 
     }

@@ -12,11 +12,15 @@ namespace Task1
         private Teacher roomsManager;
         private CurrentAccount roomsAccount;
         private Courses course;
-        private readonly List<Rooms> _availableRooms = new List<Rooms>();
-        private readonly List<Rooms> _reservedRooms = new List<Rooms>();
+        private static readonly  List<Rooms> _availableRooms = new List<Rooms>();
+        private static readonly List<Rooms> _reservedRooms = new List<Rooms>();
 
         public Rooms(Courses course)
         {
+            if (course == null)
+            {
+                return;
+            }
             roomsManager = new Teacher("Hamza", new DateTime(1990, 1, 1), 21379723);
             this.course = course;
             roomsAccount = new CurrentAccount(roomsManager);
@@ -81,6 +85,11 @@ namespace Task1
             {
                 Console.WriteLine("Room with this course does not exist");
             }
+        }
+
+        public List<Rooms> GetReservedRooms()
+        {
+            return _reservedRooms;
         }
     }
 }

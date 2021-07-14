@@ -6,7 +6,7 @@ namespace Task1
 {
     public class Courses
     {
-        private readonly List<Courses> _courses = new List<Courses>();
+        private static readonly List<Courses> _courses = new List<Courses>();
         private List<Person> _persons = new List<Person>();
         private double coursePrice = 100.00f;
         private Teacher courseTeacher;
@@ -16,12 +16,7 @@ namespace Task1
         {
             this.courseId = courseId;
             this.courseTeacher = courseTeacher;
-            if (courseTeacher != null)
-            {
-                _courses.Add(this);
-
-            }
-
+ 
 
 
         }
@@ -34,16 +29,17 @@ namespace Task1
         public void AddStudents(Student student,int courseId)
         {
             if (student == null) return;
+            var targetedCourse = FindIfCourseExist(courseId);
             if (student.getAccount().Balance > coursePrice)
             {
-                student.getAccount().Pay(coursePrice,courseTeacher.getAccount());
+                student.getAccount().Pay(coursePrice,targetedCourse.courseTeacher.getAccount());
                 var course =FindIfCourseExist(_courses,courseId);
                 if (course == null)
                 {
                     Console.WriteLine("Course does not exist");
                 }
                 course._persons.Add(student);
-                Console.WriteLine("{0}  enroll in this course", student.GeneralInfo.name);
+                Console.WriteLine($"{student.GeneralInfo.name}   enroll in this course");
 
             }
             else
@@ -59,7 +55,7 @@ namespace Task1
             {
                 if (courses.ElementAt(i).getCourseId() == courseId)
                 {
-                    return this;
+                    return courses.ElementAt(i);
                 }
             }
 
@@ -87,7 +83,10 @@ namespace Task1
            
 
         }
-
+        public void SetTeacher(Teacher teacher)
+        {
+            courseTeacher = teacher;
+        }
         public Teacher GeTeacher()
         {
             return courseTeacher;
@@ -98,6 +97,37 @@ namespace Task1
             return _persons;
         }
 
+        public bool FindIfStudentAlreadyExists(Student student,int courseId)
+        {
+            foreach (var person in _persons)        {
+                if (person.GeneralInfo.nationalId == student.GeneralInfo.nationalId)
+                {
+                    return true;
+                }
+            }
 
+            return false;
+
+        }
+
+        public void createCourse(int courseId, Teacher teacher)
+        {
+            for (int i = 0; i < _courses.Count; i++)
+            {
+                
+                    if (_courses[i].getCourseId() == courseId)
+                    {
+                        Console.WriteLine("Course {0} already exist",courseId);
+                       
+                        return;
+                    }
+                
+          }
+
+            this.courseTeacher = teacher;
+            
+            _courses.Add(this);
+        }
     }
+
 }

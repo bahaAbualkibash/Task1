@@ -21,7 +21,9 @@ namespace Task1
 
         public void createCourse()
         {
-              course = new Courses(this, genetateCourseId());
+             courseId = genetateCourseId();
+              course = new Courses(this, courseId);
+              course.createCourse(courseId,this);
 
         }
 
@@ -65,6 +67,11 @@ namespace Task1
         public CurrentAccount getAccount()
         {
             return account;
+        }
+
+        public int GetCourseId()
+        {
+            return courseId;
         }
 
     }
