@@ -19,6 +19,7 @@ namespace Task1
             // teacher.getAccount().AtmWithdraw(teacher.getAccount().VisaCard);
             // Console.WriteLine(teacher.getAccount().Balance);
 
+
             // test Teacher,courses,people and Student classes
 
             var teacher = new Teacher("John", new DateTime(1980, 1, 1), 8139232);
@@ -30,24 +31,31 @@ namespace Task1
             student2.CreateBankAccount();
             student3.CreateBankAccount();
 
-            student1.getAccount().InsertMoney(600);
-            student2.getAccount().InsertMoney(600);
-            student3.getAccount().InsertMoney(600);
-
+            student1.getAccount().InsertMoney(1000);
+            student2.getAccount().InsertMoney(1000);
+            student3.getAccount().InsertMoney(1000);
+            
             teacher.createCourse();
+            teacher.getAccount().InsertMoney(1000);
             student1.ApplyToEnrollInCourse(teacher.GetCourseId());
             student2.ApplyToEnrollInCourse(teacher.GetCourseId());
             student3.ApplyToEnrollInCourse(teacher.GetCourseId());
 
-            teacher.ReserveRoomForSpacificCourse();
-            var Rooms = new Rooms(null);
-            Rooms.GetReservedRooms();
+            Console.WriteLine(teacher.ReserveRoomForSpacificCourse());
+            
+            
+          var teacher2 = new Teacher("Mohammad", new DateTime(1990, 1, 1), 12793921);
 
+          teacher2.createCourse();
+          teacher2.getAccount().InsertMoney(1000);
 
+          student1.ApplyToEnrollInCourse(teacher2.GetCourseId());
+          student2.ApplyToEnrollInCourse(teacher2.GetCourseId());
+          student3.ApplyToEnrollInCourse(teacher2.GetCourseId());
+          teacher2.ReserveRoomForSpacificCourse();
 
-
-
-
+          var reserveRooms = teacher.GetCourseRoom().GetReservedRooms();
+      
 
         }
     }

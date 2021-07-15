@@ -12,7 +12,7 @@ namespace Task1
         private Teacher roomsManager;
         private CurrentAccount roomsAccount;
         private Courses course;
-        private static readonly  List<Rooms> _availableRooms = new List<Rooms>();
+        private static readonly List<Rooms> _availableRooms = new List<Rooms>();
         private static readonly List<Rooms> _reservedRooms = new List<Rooms>();
 
         public Rooms(Courses course)
@@ -21,6 +21,8 @@ namespace Task1
             {
                 return;
             }
+            addRoom(100);
+           
             roomsManager = new Teacher("Hamza", new DateTime(1990, 1, 1), 21379723);
             this.course = course;
             roomsAccount = new CurrentAccount(roomsManager);
@@ -38,15 +40,20 @@ namespace Task1
 
 
 
-        public void addRoom()
+        public void addRoom(int toAdd)
         {
-            _availableRooms.Add(new Rooms());
+            for (int i = 0; i < toAdd; i++)
+            {
+                _availableRooms.Add(new Rooms());
+
+            }
 
         }
 
-        public void reserveRoom(int courseId)
+        public Rooms reserveRoom(int courseId)
         {
-            if (_availableRooms.Count == 0) return;
+            Rooms reserverRoom = null;
+            if (getAvailableRooms() == 0) throw new NoFreeRoomsAvailableException() ;
 
             if (course.GeTeacher().getAccount().Balance > roomPrice)
             {
@@ -55,9 +62,15 @@ namespace Task1
 
 
                 _reservedRooms.Add(_availableRooms.Last());
+                 reserverRoom = _availableRooms.Last();
                 _availableRooms.Remove(_availableRooms.Last());
 
             }
+            else
+            {
+                Console.WriteLine("You Don't have enough money to reserve a Room");
+            }
+            return reserverRoom;
 
         }
 
@@ -85,6 +98,19 @@ namespace Task1
             {
                 Console.WriteLine("Room with this course does not exist");
             }
+        }
+
+        private int getAvailableRooms()
+        {
+            int freeRooms = 0;
+            foreach (var room in _availableRooms)
+            {
+                if (room.course == null)
+                    freeRooms++;
+
+            }
+
+            return freeRooms;
         }
 
         public List<Rooms> GetReservedRooms()

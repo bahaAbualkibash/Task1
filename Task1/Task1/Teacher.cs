@@ -8,7 +8,7 @@ namespace Task1
         private CurrentAccount account ;
         private int courseId;
         private Courses course;
-
+        private Rooms courseRoom;
         public Teacher(string name, DateTime birthdate, int nationalId) : base(name, birthdate, nationalId)
         {
             account = new CurrentAccount(this);
@@ -43,13 +43,15 @@ namespace Task1
 
         }
 
-        public void ReserveRoomForSpacificCourse()
+        public Rooms ReserveRoomForSpacificCourse()
         {
             var room = new Rooms(course);
-            room.reserveRoom(courseId);
+            room = room.reserveRoom(courseId);
+            courseRoom = room;
+            return courseRoom;
         }
 
-
+      
 
         private int genetateCourseId()
         {
@@ -58,7 +60,7 @@ namespace Task1
             var random = new Random();
             for (int i = 0; i < courseIdLength; i++)
             {
-                courseId = courseId + random.Next(0, 9);
+                courseId = courseId + random.Next(0, 9999);
             }
 
             return courseId;
@@ -74,5 +76,9 @@ namespace Task1
             return courseId;
         }
 
+        public Rooms GetCourseRoom()
+        {
+            return courseRoom;
+        }
     }
 }

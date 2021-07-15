@@ -39,7 +39,7 @@ namespace Task1
                     Console.WriteLine("Course does not exist");
                 }
                 course._persons.Add(student);
-                Console.WriteLine($"{student.GeneralInfo.name}   enroll in this course");
+                Console.WriteLine($"{student.GeneralInfo.name}   enroll in {targetedCourse.courseId}");
 
             }
             else
